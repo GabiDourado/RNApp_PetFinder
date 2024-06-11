@@ -9,13 +9,13 @@ export default function Busca() {
 
     async function getUsuarios()
     {
-        await fetch('https://fakestoreapi.com/users', {
+        await fetch('http://10.139.75.52:5251/api/Animais/GetAllAnimais', {
             method: 'GET',
             headers: {
               'content-type': 'application/json'
             }
           })
-            .then( res => ( res.ok == true ) ? res.json() : false )
+            .then( res => res.json())
             .then( json => setUsuarios( json ) )
             .catch( err => setError( true ) )
     }
@@ -25,7 +25,7 @@ export default function Busca() {
     }, [] );
 
     useEffect( () => {
-        setFiltro( usuarios.filter( (item) => item.name.firstname == busca )[0] );
+        setFiltro( usuarios.filter( (item) => item.animalNome == busca )[0] );
     }, [busca] );
 
     return (
@@ -39,7 +39,7 @@ export default function Busca() {
                     onChangeText={(digitado) => setBusca( digitado ) }
                 />
             </View>
-            { filtro && <Text style={css.text}>{filtro.name.firstname} {filtro.name.lastname}</Text> }
+            { filtro && <Text style={css.text}>{filtro.animalNome} </Text> }
             { ( !filtro && busca ) && <ActivityIndicator size="large" color="white" /> }
         </View>
     )

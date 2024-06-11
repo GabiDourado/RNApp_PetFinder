@@ -6,17 +6,17 @@ import Stories from '../Components/Stories';
 
 export default function Home() {
 
-  const [produtos, setProdutos] = useState([]);
+  const [animais, setAnimais] = useState([]);
 
   async function getProdutos() {
-    await fetch('https://fakestoreapi.com/products', {
+    await fetch('http://10.139.75.52:5251/api/Animais/GetAllAnimais', {
       method: 'GET',
       headers: {
         'content-type': 'application/json'
       }
     })
       .then(res => res.json())
-      .then(json => setProdutos(json))
+      .then(json => setAnimais(json))
       .catch(err => console.log(err))
   }
 
@@ -26,14 +26,14 @@ export default function Home() {
 
   return (
     <View style={css.container}>
-      {produtos ?
+      {animais ?
         <>
-          <Stories produtos={produtos} />
+          <Stories produtos={animais} />
           <FlatList
-            data={produtos}
-            renderItem={({ item }) => <Produto title={item.title} price={item.price} image={item.image} description={item.description} category={item.category} rating={item.rating} />}
+            data={animais}
+            renderItem={({ item }) => <Produto title={item.animalNome} image={item.animalFoto} />}
             keyExtractor={(item) => item.id}
-            contentContainerStyle={{ height: (produtos.length * 600) + 110 }}
+            contentContainerStyle={{ height: (animais.length * 600) + 110 }}
           />
         </>
         :
@@ -48,7 +48,7 @@ const css = StyleSheet.create({
     flexGrow: 1,
     color: "white",
     justifyContent: "center",
-    alignItems: "center"
+   
   },
   text: {
     color: "white"
