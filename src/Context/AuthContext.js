@@ -6,25 +6,23 @@ function AuthProvider({ children }) {
     const [logado, setLogado] = useState(false);
     const [error, setError] = useState(false);
 
-    async function Login(email, senha) {
-
+    async function Login(email, senha) {      
         if (email != "" && senha != "") {
-            await fetch('http://10.139.75.52:5251/Usuarios/Login', {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
+            fetch('http://10.139.75.52:5251/api/Usuarios/Login?usuarioEmail='+email+'&usuarioSenha='+senha, {
+                method: 'POST',               
                 body: JSON.stringify({
                     usuarioEmail: email,
                     usuarioSenha: senha
-                })
+                }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8'
+                }
             })
-                .then(res => (res.ok == true) ? res.json() : setLogado(true) )
-                .then( json => setLogado(true) )
-                
-                .catch(err => setError(true))
-        } else {
-            setError(true)
+            .then((res) => res.json())   
+            .then((json) => json==true ? logado=json : logado=false)                
+            .catch(err => console.log(err))           
+        } else {           
+           setError(true);
         }
     }
 

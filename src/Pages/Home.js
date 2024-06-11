@@ -55,6 +55,7 @@ export default function Home({ navigation }) {
       .catch(err => console.log(err))
       getDono( id );
   }
+
   async function getDono(id) {
     await fetch('http://10.139.75.52:5251/api/Usuarios/GetUsuarioId/' + id, {
       method: 'GET',
@@ -80,13 +81,14 @@ export default function Home({ navigation }) {
     setAnimalCor("");
     setAnimalSexo("");
     setAnimalObs("");
-    setAnimalDono("")
-
+    setAnimalDono("");
   }
+
   useEffect(() => {
     getProdutos();
   }, [])
 
+  
   return (
     <View style={css.container}>
       {animais && !detalhe &&

@@ -6,31 +6,37 @@ export default function Detalhes({onPress, animalImagem,
                                   animalCor, animalSexo, animalObs, animalDono}) {
   return (
     <View style={css.container}>
-
-      <View><Image style={css.fotoAnimal} source={{ uri: animalImagem }} /></View>
-      <Text style={css.text}>{animalNome}</Text>
-      <View>
-        <Text style={css.text}>{animalDtDes}</Text>
-        <Text style={css.text}>{animalRaca}</Text>
-        <Text style={css.text}>{animalTipo}</Text>
-        <Text style={css.text}>{animalCor}</Text>
-        <Text style={css.text}>{animalSexo}</Text>
-        <Text style={css.text}>{animalObs}</Text>
-        <Text style={css.text}>{animalDono}</Text>
-      </View>
-      <View>
-        <TouchableOpacity>
-          <Text style={css.text}>Sim</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={css.text}>Não</Text>
-        </TouchableOpacity>
-      </View>
-      <TouchableOpacity>
-        <Text style={css.text}>Adicionar Observação</Text>
-      </TouchableOpacity>
-      <Button title='Voltar' onPress={onPress} />
-
+      {animalImagem != "" ?
+        <>
+          <View>
+            <Image style={css.fotoAnimal} source={{ uri: animalImagem }} />
+          </View>
+          <Text style={css.text}>{animalNome}</Text>
+          <View>
+            <Text style={css.text}>{animalDtDes}</Text>
+            <Text style={css.text}>{animalRaca}</Text>
+            <Text style={css.text}>{animalTipo}</Text>
+            <Text style={css.text}>{animalCor}</Text>
+            <Text style={css.text}>{animalSexo}</Text>
+            <Text style={css.text}>{animalObs}</Text>
+            <Text style={css.text}>{animalDono}</Text>
+          </View>
+          <View>
+            <TouchableOpacity>
+              <Text style={css.text}>Sim</Text>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Text style={css.text}>Não</Text>
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity>
+            <Text style={css.text}>Adicionar Observação</Text>
+          </TouchableOpacity>
+          <Button title='Voltar' onPress={onPress} />
+        </>
+        :
+        <View></View>
+       }
     </View>
   )
 }
