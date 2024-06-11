@@ -3,7 +3,7 @@ import { createContext, useState } from "react";
 export const AuthContext = createContext(0);
 
 function AuthProvider({ children }) {
-    const [logado, setLogado] = useState(true);
+    const [logado, setLogado] = useState(false);
     const [error, setError] = useState(false);
 
     async function Login(email, senha) {
@@ -15,16 +15,13 @@ function AuthProvider({ children }) {
                     'content-type': 'application/json'
                 },
                 body: JSON.stringify({
-                    usuarioId: 1,
-                    usuarioNome: "Csss",
-                    usuarioTelefone: "usuarioTelefone",
-                    usuarioEmail: "email",
-                    usuarioSenha: 12
+                    usuarioEmail: email,
+                    usuarioSenha: senha
                 })
             })
-                .then(res => res.json())
-                .then(json => console.log(json))
-
+                .then(res => (res.ok == true) ? res.json() : setLogado(true) )
+                .then( json => setLogado(true) )
+                
                 .catch(err => setError(true))
         } else {
             setError(true)

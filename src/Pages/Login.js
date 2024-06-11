@@ -1,21 +1,23 @@
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native'
 import React, { useContext, useState } from 'react'
 import { AuthContext } from '../Context/AuthContext';
+import Cadastro from './Cadastro';
 
 export default function Login() {
-
+    const [ cadastro, setCadastro ] = useState(false);
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
 
     const { Login, error } = useContext(AuthContext);
 
     function RealizaLogin() {
-       Login( email, senha );
+        Login(email, senha);
     }
 
 
     return (
         <ScrollView contentContainerStyle={css.container}>
+            {!cadastro ? <>
             <Image source={require("../../assets/logo.png")} style={css.logo} />
             <TextInput
                 inputMode="email"
@@ -34,17 +36,27 @@ export default function Login() {
                 onChangeText={(digitado) => setSenha(digitado)}
                 placeholderTextColor="white"
             />
-            <View style={css.forgot}>
-                <Text style={css.forgotText}>Esqueceu a senha?</Text>
-            </View>
             <TouchableOpacity style={css.btnLogin} onPress={RealizaLogin}>
                 <Text style={css.btnLoginText}>Log In</Text>
             </TouchableOpacity>
+            <View style={css.forgot}>
+                <TouchableOpacity>
+                    <Text style={css.forgotText}>Esqueceu a senha?</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={css.forgot}>
+                <TouchableOpacity onPress={()=> setCadastro(true)}>
+                    <Text style={css.forgotText}>Cadastre-se</Text>
+                </TouchableOpacity>
+            </View>
             {error &&
                 <View style={css.error}>
                     <Text style={css.errorText}>Revise os campos. Tente novamente!</Text>
                 </View>
             }
+            </>
+            :
+            <Cadastro/>}
         </ScrollView>
     )
 }
@@ -55,7 +67,7 @@ const css = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         alignContent: "center",
-        backgroundColor: "#191919"
+        backgroundColor: "#E3F2FD"
     },
     logo: {
         width: "60%",

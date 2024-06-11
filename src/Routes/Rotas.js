@@ -8,9 +8,10 @@ import { AuthContext } from '../Context/AuthContext';
 import Home from '../Pages/Home';
 import Busca from '../Pages/Busca';
 import Login from '../Pages/Login';
-import Videos from '../Pages/Videos';
+import Detalhes from '../Components/Detalhes';
 import Perfil from '../Pages/Perfil';
-import Inserir from '../Pages/Inserir';
+import CriarObservacao from '../Pages/CriarObservacao';
+import AdicionarAnimal from '../Pages/AdicionarAnimal';
 
 
 const Tab = createBottomTabNavigator();
@@ -55,20 +56,20 @@ export default function Rotas() {
 
                 />
                 <Tab.Screen
-                    name="Inserir"
-                    component={Inserir}
+                    name="CriarObservacao"
+                    component={CriarObservacao}
                     options={{
                         tabBarIcon: ({ color, size }) => (
                             <MaterialCommunityIcons name="plus-box" color={color} size={size} />
                         ),
                     }}
                 />
-                <Tab.Screen
-                    name="Videos"
-                    component={Videos}
+                 <Tab.Screen
+                    name="AdicionarAnimal"
+                    component={AdicionarAnimal}
                     options={{
                         tabBarIcon: ({ color, size }) => (
-                            <MaterialCommunityIcons name="youtube-tv" color={color} size={size} />
+                            <MaterialCommunityIcons name="plus-box" color={color} size={size} />
                         ),
                     }}
                 />
