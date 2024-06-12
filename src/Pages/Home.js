@@ -95,8 +95,13 @@ export default function Home({ navigation }) {
         <>
           <FlatList
             data={animais}
-            renderItem={({ item }) => <Animal nome={item.animalNome} image={item.animalFoto} id={item.animaisId} setDetalhe={setDetalhe} getAnimalId={getAnimailId} />}
-            keyExtractor={(item) => item.animalId}
+            renderItem={({ item }) => <Animal 
+                                      nome={item.animalNome} 
+                                      image={item.animalFoto} 
+                                      id={item.animaisId} 
+                                      setDetalhe={setDetalhe} 
+                                      getAnimalId={getAnimailId} />}
+            keyExtractor={(item) => item.animaisId}
             contentContainerStyle={{ height: (animais.length * 600) + 110 }}
           />
         </>
