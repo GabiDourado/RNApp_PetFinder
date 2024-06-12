@@ -14,7 +14,9 @@ export default function Login() {
         Login(email, senha);
     }
 
-
+     function Voltar(){
+        setCadastro(false);
+     }
     return (
         <ScrollView contentContainerStyle={css.container}>
             {!cadastro ? <>
@@ -56,7 +58,7 @@ export default function Login() {
             }
             </>
             :
-            <Cadastro/>}
+            <Cadastro setCadastro={setCadastro}/>}
         </ScrollView>
     )
 }
@@ -70,7 +72,8 @@ const css = StyleSheet.create({
         backgroundColor: "#E3F2FD"
     },
     logo: {
-        width: "60%",
+        height: 300,
+        width: "40%",
         resizeMode: "contain"
     },
     input: {

@@ -1,45 +1,101 @@
-import { Button, StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { Button, StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native'
+import React, { useState } from 'react'
 
-export default function Cadastro({setCadastro}) {
-  
-  async function Cadastrar(id, nome, telefone, email, senha) {
-    await fetch('http://10.139.75.52:5251/api/Usuarios/InsertUsuario', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify({
-          usuarioId: id,
-          usuarioNome: nome,
-          usuarioTelefone: telefone,
-          usuarioEmail: email,
-          usuarioSenha: senha
-    })
-    })
-      .then(res => res.json())
-      .then(json => setAnimais(json))
-      .catch(err => console.log(err))
+export default function Cadastro({ onPress, setCadastro }) {
+
+  const [usuarioId, setUsuarioId] = useState();
+  const [ usuarioNome, setUsuarioNome ]= useState();
+  const [ usuarioTel, setUsuarioTel ] = useState();
+  const [ usuarioEmail, setUsuarioEmail ]= useState();
+  const [ usuarioSenha, setUsuarioSenha ] = useState();
+  async function Cadastrar() { 
+    if(usuarioNome != "" || usuarioTel != "" || usuarioEmail != "" || usuarioSenha != "")
+    {
+      await fetch('http://10.139.75.52:5251/api/Usuarios/InsertUsuario', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          usuarioNome: usuarioNome,
+          usuarioTelefone: usuarioTel,
+          usuarioEmail: usuarioEmail,
+          usuarioSenha: usuarioSenha
+        })
+      })
+        .then(res => res.json())
+        .then(json => { alert("Cadastro realizado com sucesso!")})
+        .catch(err => console.log(err))  
+    }
+    else{
+      alert("Verifique os campos e tente novamente")
+    } 
   }
   return (
     <View>
+      <Button title='voltar' onPress={onPress}/>
       <Text>Cadastre-se</Text>
-      <View></View>
-      <View></View>
-      <View></View>
+      <View style={css.entrarCom}>
+        <TouchableOpacity style={css.caixaentrar}>
+          <Image style={css.conta} source={{ uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/480px-Facebook_f_logo_%282019%29.svg.png", }} />
+        </TouchableOpacity>
+        <TouchableOpacity style={css.caixaentrar}>
+          <Image style={css.conta} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png', }} />
+        </TouchableOpacity>
+        <TouchableOpacity style={css.caixaentrar}>
+          <Image style={css.conta} source={{ uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/768px-Instagram_icon.png", }} />
+        </TouchableOpacity>
+      </View>
       <Text>Ou</Text>
-      <TextInput placeholder='Nome'/> 
-      <TextInput placeholder='Email'/> 
-      <TextInput placeholder='Telefone'/> 
-      <TextInput placeholder='Senha'/> 
-      <TextInput placeholder='Confirmar senha'/> 
-      <TouchableOpacity>
+      <TextInput 
+      placeholder='Nome' 
+      value={usuarioNome} 
+      onChangeText={(digitado) => setUsuarioNome(digitado)}
+      />
+      <TextInput 
+      placeholder='Email' 
+      value={usuarioEmail}     
+      onChangeText={(digitado) => setUsuarioEmail(digitado)}
+      />
+      <TextInput 
+      placeholder='Telefone' 
+      value={usuarioTel}     
+      onChangeText={(digitado) => setUsuarioTel(digitado)}      
+      />
+      <TextInput 
+      placeholder='Senha' 
+      value={usuarioSenha}     
+      onChangeText={(digitado) => setUsuarioSenha(digitado)}      
+      secureTextEntry={true}
+      />
+      <TouchableOpacity onPress={()=>{Cadastrar();   setCadastro(false); }}>
         <Text>Cadastrar-se</Text>
       </TouchableOpacity>
     </View>
   )
 }
 
-const styles = StyleSheet.create({
+const css = StyleSheet.create({
+  entrarCom: {
+    width: '90%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around'
+  },
+  caixaentrar: {
+    backgroundColor: "#fff",
+    width: 62,
+    height: 62,
+    margin: 10,
+    borderRadius: 10,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+
+  },
+  conta: {
+    width: 50,
+    height: 50,
+  },
 
 })
