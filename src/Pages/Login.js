@@ -58,7 +58,7 @@ export default function Login() {
             }
             </>
             :
-            <Cadastro setCadastro={setCadastro}/>}
+            <Cadastro setCadastro={setCadastro} onPress={()=>setCadastro(false)}/>}
         </ScrollView>
     )
 }

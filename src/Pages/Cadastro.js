@@ -9,7 +9,8 @@ export default function Cadastro({ onPress, setCadastro }) {
   const [ usuarioEmail, setUsuarioEmail ]= useState();
   const [ usuarioSenha, setUsuarioSenha ] = useState();
   async function Cadastrar() { 
-    if(usuarioNome != "" || usuarioTel != "" || usuarioEmail != "" || usuarioSenha != "")
+    console.log(usuarioTel);
+    if(usuarioNome != null || usuarioTel != null || usuarioEmail != null || usuarioSenha != null)
     {
       await fetch('http://10.139.75.52:5251/api/Usuarios/InsertUsuario', {
         method: 'POST',

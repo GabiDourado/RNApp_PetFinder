@@ -1,15 +1,16 @@
 import { View, Text, StyleSheet, FlatList } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Animal from '../Components/Animais';
-import Stories from '../Components/Stories';
 import Detalhes from '../Components/Detalhes';
+import Stories from '../Components/Stories'
+
 
 
 export default function Home({ navigation }) {
 
   const [animais, setAnimais] = useState([]);
   const [detalhe, setDetalhe] = useState(false);
-
+  
   const [animalId, setAnimalId] = useState();
   const [animalImagem, setAnimalImagem] = useState();
   const [animalNome, setAnimalNome] = useState();
@@ -21,7 +22,7 @@ export default function Home({ navigation }) {
   const [animalObs, setAnimalObs] = useState();
   const [animalDono, setAnimalDono] = useState();
 
-  async function getProdutos() {
+  async function getAnimais() {
     await fetch('http://10.139.75.52:5251/api/Animais/GetAllAnimais', {
       method: 'GET',
       headers: {
@@ -34,6 +35,7 @@ export default function Home({ navigation }) {
   }
 
   async function getAnimailId(id) {
+    console.log()
     await fetch('http://10.139.75.52:5251/api/Animais/GetAnimalId/' + id, {
       method: 'GET',
       headers: {
@@ -41,8 +43,7 @@ export default function Home({ navigation }) {
       }
     })
       .then(res => res.json())
-      .then(json => {
-        setAnimalId(json.animaisId);
+      .then(json => {            
         setAnimalNome(json.animalNome);
         setAnimalImagem(json.animalFoto);
         setAnimalDtDes(json.animalDtDesaparecimento);
@@ -54,6 +55,7 @@ export default function Home({ navigation }) {
       })
       .catch(err => console.log(err))
       getDono( id );
+      setAnimalId(id);
   }
 
   async function getDono(id) {
@@ -85,7 +87,7 @@ export default function Home({ navigation }) {
   }
 
   useEffect(() => {
-    getProdutos();
+    getAnimais();
   }, [])
 
   
@@ -93,6 +95,7 @@ export default function Home({ navigation }) {
     <View style={css.container}>
       {animais && !detalhe &&
         <>
+        <Stories/>
           <FlatList
             data={animais}
             renderItem={({ item }) => <Animal 
@@ -121,8 +124,10 @@ export default function Home({ navigation }) {
           animalSexo={animalSexo}
           animalObs={animalObs}
           animalDono={animalDono}
+          animalId={animalId}
         />
       }
+      
     </View>
   )
 }

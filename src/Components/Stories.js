@@ -1,39 +1,34 @@
 import { View, Text, StyleSheet, FlatList, Image } from 'react-native'
 import React, { useEffect, useState } from 'react'
 
-export default function Stories({produtos}) {
+export default function Stories({produtos, foto}) {
 
   return (
-    <FlatList
-      data={produtos}
-      renderItem={ ({item}) => 
+      <View style={css.container}>
         <View style={css.story}>
-          <Image source={{ uri: item.animalFoto}} style={css.image}/>
+          <Image source={require("../../assets/variavelLogo.png")} style={css.image}/>
         </View>
-      }
-      keyExtractor={ (item) => item.id }
-      contentContainerStyle={[css.container, { width: produtos.length * 70 }]}
-      horizontal={true}
-    />
+        </View>
+     
   )
 }
 const css = StyleSheet.create({
     container: {
-        height: 130,
-        padding: 20,
+        padding: 10,
         display: "flex",
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "flex-end",
         gap: 10,
-        marginBottom: 20
+        backgroundColor: "#09488F"
     },
     story: {
         width: 60,
         height: 60,
         backgroundColor: "white",
         borderRadius: 30,
-        overflow: "hidden"
+        overflow: "hidden",
+        marginTop: 20
     },
     image: {
       width: "100%",

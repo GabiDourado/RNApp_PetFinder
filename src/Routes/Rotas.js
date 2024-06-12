@@ -10,7 +10,6 @@ import Busca from '../Pages/Busca';
 import Login from '../Pages/Login';
 import Detalhes from '../Components/Detalhes';
 import Perfil from '../Pages/Perfil';
-import CriarObservacao from '../Pages/CriarObservacao';
 import AdicionarAnimal from '../Pages/AdicionarAnimal';
 
 
@@ -31,7 +30,7 @@ export default function Rotas() {
                     headerShown: false,
                     tabBarShowLabel: false,
                     tabBarStyle: {
-                        backgroundColor: '#191919',
+                        backgroundColor: '#09488F',
                     },
                     tabBarActiveTintColor: "white"
                 }}
@@ -42,25 +41,6 @@ export default function Rotas() {
                     options={{
                         tabBarIcon: ({ color, size }) => (
                             <MaterialCommunityIcons name="home" color={color} size={size} />
-                        ),
-                    }}
-                />
-                <Tab.Screen
-                    name="Busca"
-                    component={Busca}
-                    options={{
-                        tabBarIcon: ({ color, size }) => (
-                            <MaterialCommunityIcons name="magnify" color={color} size={size} />
-                        ),
-                    }}
-
-                />
-                <Tab.Screen
-                    name="CriarObservacao"
-                    component={CriarObservacao}
-                    options={{
-                        tabBarIcon: ({ color, size }) => (
-                            <MaterialCommunityIcons name="plus-box" color={color} size={size} />
                         ),
                     }}
                 />

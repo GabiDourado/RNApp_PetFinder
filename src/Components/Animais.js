@@ -1,11 +1,8 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity, Button } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { useFocusEffect } from '@react-navigation/native';
-import Detalhes from './Detalhes';
+
 
 export default function Animais({ nome, image, id, setDetalhe, getAnimalId }) {
-
-
     return (
         <View style={css.container}>
             <View style={css.boxTitle}>
@@ -18,13 +15,15 @@ export default function Animais({ nome, image, id, setDetalhe, getAnimalId }) {
             <TouchableOpacity style={css.btn} onPress={() => { setDetalhe(true); getAnimalId(id); }}>
                 <Text style={css.Txtbtn}>Detalhes</Text>
             </TouchableOpacity>
-        </View >
+        </View>
     )
 }
 const css = StyleSheet.create({
     container: {
-        width: "100%",
+        width: "80%",
         height: 600,
+        backgroundColor: "",
+        padding: 10
 
     },
     boxTitle: {
