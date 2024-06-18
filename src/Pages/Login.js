@@ -127,10 +127,10 @@ const css = StyleSheet.create({
     error: {
         width: "100%",
         height: 50,
-        marginTop: 30
+        marginTop: 30,
     },
     errorText: {
-        color: "white",
+        color: "black",
         textAlign: "center"
     },
     entrarCom: {

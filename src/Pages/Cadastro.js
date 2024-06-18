@@ -33,7 +33,6 @@ export default function Cadastro({ onPress, setCadastro }) {
   }
   return (
     <View style={css.container}>
-      <Button title='voltar' onPress={onPress} />
       <Image source={require("../../assets/logo.png")} style={css.logo}></Image>
       <Text style={css.titulo}>Cadastre-se</Text>
       <View style={css.entrarCom}>
@@ -55,19 +54,19 @@ export default function Cadastro({ onPress, setCadastro }) {
         onChangeText={(digitado) => setUsuarioNome(digitado)}
       />
       <TextInput
-       style={css.input}
+        style={css.input}
         placeholder='Email'
         value={usuarioEmail}
         onChangeText={(digitado) => setUsuarioEmail(digitado)}
       />
       <TextInput
-       style={css.input}
+        style={css.input}
         placeholder='Telefone'
         value={usuarioTel}
         onChangeText={(digitado) => setUsuarioTel(digitado)}
       />
       <TextInput
-       style={css.input}
+        style={css.input}
         placeholder='Senha'
         value={usuarioSenha}
         onChangeText={(digitado) => setUsuarioSenha(digitado)}
@@ -75,6 +74,9 @@ export default function Cadastro({ onPress, setCadastro }) {
       />
       <TouchableOpacity style={css.btncadastro} onPress={() => { Cadastrar(); setCadastro(false); }}>
         <Text style={css.btncadastrotxt}>Cadastrar-se</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={css.btn} onPress={onPress}>
+        <Text style={css.textbtn}>Voltar</Text>
       </TouchableOpacity>
     </View>
   )
@@ -144,13 +146,22 @@ const css = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     backgroundColor: "#09488F",
-},
-btncadastrotxt: {
+  },
+  btncadastrotxt: {
     color: "white",
     lineHeight: 45,
     textAlign: "center",
     fontSize: 17,
     fontWeight: "bold"
-},
+  },
+  btn: {
+    backgroundColor: "#09488F",
+    padding: 10,
+    borderRadius: 10,
+    margin: 10
+  },
+  textbtn: {
+    color: "#fff"
+  },
 
 })
