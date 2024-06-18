@@ -10,7 +10,7 @@ export default function Home({ navigation }) {
 
   const [animais, setAnimais] = useState([]);
   const [detalhe, setDetalhe] = useState(false);
-  
+  const [ animalStatus, setAnimalStatus ] = useState();
   const [animalId, setAnimalId] = useState();
   const [animalImagem, setAnimalImagem] = useState();
   const [animalNome, setAnimalNome] = useState();
@@ -52,6 +52,7 @@ export default function Home({ navigation }) {
         setAnimalCor(json.animalCor);
         setAnimalSexo(json.animalSexo);
         setAnimalObs(json.animalObservacao);
+        setAnimalStatus(json.animalStatus)
       })
       .catch(err => console.log(err))
       getDono( id );
@@ -120,6 +121,7 @@ export default function Home({ navigation }) {
           animalDtDes={animalDtDes}
           animalRaca={animalRaca}
           animalTipo={animalTipo}
+          animalStatus={animalStatus}
           animalCor={animalCor}
           animalSexo={animalSexo}
           animalObs={animalObs}

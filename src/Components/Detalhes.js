@@ -6,7 +6,7 @@ import Stories from './Stories';
 
 export default function Detalhes({ onPress, animalImagem, animalId,
   animalNome, animalDtDes, animalRaca, animalTipo,
-  animalCor, animalSexo, animalObs, animalDono }) {
+  animalCor, animalSexo, animalObs, animalDono, animalStatus }) {
   const [observacao, setObservacao] = useState(false);
 
 
@@ -29,6 +29,11 @@ export default function Detalhes({ onPress, animalImagem, animalId,
                 <Text style={css.text}> Sexo: {animalSexo}</Text>
                 <Text style={css.text}> Observação: {animalObs}</Text>
                 <Text style={css.text}> Dono(a): {animalDono}</Text>
+                {animalStatus != 0?
+                <Text style={css.text}> Desaparecido </Text>
+                :
+                <Text style={css.text}> Encontrado</Text>
+                }
               </View>
               <Text style={css.viu}>Você me viu?</Text>
               <TouchableOpacity onPress={() => setObservacao(true)} style={css.btn}>
