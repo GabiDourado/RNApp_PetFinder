@@ -5,16 +5,16 @@ import React, { useEffect, useState } from 'react'
 export default function Animais({ nome, image, id, setDetalhe, getAnimalId }) {
     return (
         <View style={css.container}>
-            <View style={css.boxTitle}>
-                <View style={css.circleAvatar}></View>
-                <Text style={css.title}>{nome}</Text>
-            </View>
             <View style={css.boxImage}>
                 <Image source={{ uri: image }} style={css.imagem} />
+                <View style={css.nomeBtn}>
+                    <Text style={css.title}>{nome}</Text>
+                    <TouchableOpacity style={css.btn} onPress={() => { setDetalhe(true); getAnimalId(id); }}>
+                        <Text style={css.Txtbtn}>Detalhes</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-            <TouchableOpacity style={css.btn} onPress={() => { setDetalhe(true); getAnimalId(id); }}>
-                <Text style={css.Txtbtn}>Detalhes</Text>
-            </TouchableOpacity>
+
         </View>
     )
 }
@@ -44,23 +44,34 @@ const css = StyleSheet.create({
         marginRight: 10
     },
     title: {
-        fontSize: 20,
-        textAlign: "center"
+        fontSize: 18,
+        width:"70%",
+        padding: 5,
+        marginTop: 10,
     },
     boxImage: {
-        width: "100%",
-        height: 390
+        display:"flex",
+        justifyContent:"center",
+        alignItems:"center",
+        width: "90%",
+        height: 400,
+        backgroundColor: "#ABDBFE",
+        borderRadius: 10,
+        margin: 10,
+        overflow:'hidden'
     },
     imagem: {
-        width: "100%",
-        height: "100%",
-        resizeMode: "cover"
+        width: "85%",
+        height: 330,
+        resizeMode: "cover",
+        borderRadius: 10
     },
     btn: {
         backgroundColor: "#09488F",
-        width: "40%",
-        padding: 10,
-        marginTop: 10
+        width: "25%",
+        padding: 5,
+        marginTop: 10,
+        borderRadius: 20,
     },
     Txtbtn: {
         color: "white",
@@ -73,8 +84,11 @@ const css = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     },
-    fotoAnimal: {
-        width: 100,
-        height: 100
+    nomeBtn:{
+        display:'flex',
+        flexDirection:"row",
+        alignItems:"center",
+        justifyContent:'center',
+        width:'87%'
     }
 })
