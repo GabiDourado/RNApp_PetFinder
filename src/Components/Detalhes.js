@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity, Button } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import CriarObservacao from '../Components/CriarObservacao'
+import Stories from './Stories';
 
 
 export default function Detalhes({ onPress, animalImagem, animalId,
@@ -10,6 +11,8 @@ export default function Detalhes({ onPress, animalImagem, animalId,
 
 
   return (
+    <>
+    <Stories/>
     <View style={css.container}>
       {!observacao && animalImagem != "" ?
         <>
@@ -48,6 +51,7 @@ export default function Detalhes({ onPress, animalImagem, animalId,
       }
 
     </View>
+    </>
   )
 }
 const css = StyleSheet.create({

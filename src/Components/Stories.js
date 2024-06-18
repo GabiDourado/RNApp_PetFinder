@@ -23,16 +23,16 @@ const css = StyleSheet.create({
         backgroundColor: "#09488F"
     },
     story: {
-        width: 60,
+        width: 70,
         height: 60,
         backgroundColor: "white",
         borderRadius: 30,
-        overflow: "hidden",
         marginTop: 20
     },
     image: {
       width: "100%",
       height: "100%",
-      resizeMode: "cover"
+      resizeMode: "cover",
+      backgroundColor: "#09488F",
     }
 })
