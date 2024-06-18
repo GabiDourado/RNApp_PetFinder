@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity, Button } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity, Button, ScrollView } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import CriarObservacao from '../Components/CriarObservacao'
 import Stories from './Stories';
@@ -12,45 +12,41 @@ export default function Detalhes({ onPress, animalImagem, animalId,
 
   return (
     <>
-    <Stories/>
-    <View style={css.container}>
-      {!observacao && animalImagem != "" ?
-        <>
-          <View>
-            <Image style={css.fotoAnimal} source={{ uri: animalImagem }} />
-          </View>
-          <Text style={css.text}>{animalNome}</Text>
-          <View>
-            <Text style={css.text}>{animalDtDes}</Text>
-            <Text style={css.text}>{animalRaca}</Text>
-            <Text style={css.text}>{animalTipo}</Text>
-            <Text style={css.text}>{animalCor}</Text>
-            <Text style={css.text}>{animalSexo}</Text>
-            <Text style={css.text}>{animalObs}</Text>
-            <Text style={css.text}>{animalDono}</Text>
-          </View>
-          <View>
-            <TouchableOpacity>
-              <Text style={css.text}>Sim</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text style={css.text}>Não</Text>
-            </TouchableOpacity>
-          </View>
-          <TouchableOpacity onPress={() => setObservacao(true)}>
-            <Text style={css.text}>Adicionar Observação</Text>
-          </TouchableOpacity>
-          <Button title='Voltar' onPress={onPress} />
-        </>
-        :
-        <CriarObservacao
-          setObservacao={setObservacao}
-          animalId={animalId}
-          animalNome={animalNome}
-        />
-      }
-
-    </View>
+      <Stories />
+      <ScrollView contentContainerStyle={css.scroll}>
+        <View style={css.container}>
+          {!observacao && animalImagem != "" ?
+            <>
+              <View style={css.bordaFoto}>
+                <Image style={css.fotoAnimal} source={{ uri: animalImagem }} />
+              </View>
+              <Text style={css.textNome}>{animalNome}</Text>
+              <View style={css.descricao}>
+                <Text style={css.text}> Desapareceu em: {animalDtDes}</Text>
+                <Text style={css.text}> Raça: {animalRaca}</Text>
+                <Text style={css.text}> Tipo: {animalTipo}</Text>
+                <Text style={css.text}> Cor: {animalCor}</Text>
+                <Text style={css.text}> Sexo: {animalSexo}</Text>
+                <Text style={css.text}> Observação: {animalObs}</Text>
+                <Text style={css.text}> Dono(a): {animalDono}</Text>
+              </View>
+              <Text style={css.viu}>Você me viu?</Text>
+              <TouchableOpacity onPress={() => setObservacao(true)} style={css.btn}>
+                <Text style={css.textbtn}>Adicionar Observação</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={css.btn} onPress={onPress}>
+                <Text style={css.textbtn}>Voltar</Text>
+              </TouchableOpacity>
+            </>
+            :
+            <CriarObservacao
+              setObservacao={setObservacao}
+              animalId={animalId}
+              animalNome={animalNome}
+            />
+          }
+        </View>
+      </ScrollView>
     </>
   )
 }
@@ -63,8 +59,44 @@ const css = StyleSheet.create({
     alignItems: "center"
   },
   fotoAnimal: {
-    width: 100,
-    height: 100
-  }
+    width: "90%",
+    height: 400,
+    borderRadius: 10,
+  },
+  bordaFoto: {
+    width: "95%",
+    height: 430,
+    backgroundColor: "#ABDBFE",
+    margin: 8,
+    display: "flex",
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+  },
+  text: {
+    fontSize: 15,
+    padding: 4
+  },
+  textNome: {
+    fontSize: 20
+  },
+  descricao:{
+    width:"97%"
+  },
+  scroll:{
+    paddingBottom: 70
+  },
+  viu:{
+    fontSize:17
+  },
+  btn:{
+    backgroundColor:"#346AA5",
+    padding:10,
+    borderRadius: 10,
+    margin:5
+  },
+  textbtn:{
+    color:"#fff"
+  },
 
 })
