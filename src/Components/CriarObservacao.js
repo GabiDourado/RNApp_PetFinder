@@ -1,33 +1,36 @@
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Button } from 'react-native'
-import React, { useState , useContext} from 'react';
+import React, { useState, useContext } from 'react';
 import { AuthContext } from '../Context/AuthContext';
 
-export default function Inserir({ NomeDono, NomeAnimal, setObservacao, animalId, animalNome}) {
+export default function Inserir({ NomeDono, NomeAnimal, setObservacao, animalId, animalNome }) {
   const [obsDescricao, setObsDescricao] = useState();
   const [obsLocal, setObsLocal] = useState();
   const [obsData, setObsData] = useState();
   const [nomeAnimal, setNomeAnimal] = useState();
-  const [nomeUsuario, setNomeUsuario] = useState();
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
-  async function CriarObs() {    
-    console.log(animalId);
-    await fetch('http://10.139.75.52:5251/api/Observacoes/InsertObservacao', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify({
-        observacaoDescricao: obsDescricao,
-        observacaoLocal: obsLocal,
-        observacaoData: obsData,
-        animaisId: animalId,
-        usuarioId: user.usuarioId
+  async function CriarObs() {
+    if (obsDescricao != null || obsLocal != null || obsData != null) {
+      await fetch('http://10.139.75.52:5251/api/Observacoes/InsertObservacao', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          observacaoDescricao: obsDescricao,
+          observacaoLocal: obsLocal,
+          observacaoData: obsData,
+          animaisId: animalId,
+          usuarioId: user.usuarioId
+        })
       })
-    })
-      .then(res => res.json())
-      .then(json => { alert("Observação criada com sucesso") })
-      .catch(err => console.log(err))
+        .then(res => res.json())
+        .then(json => { alert("Observação criada com sucesso") })
+        .catch(err => console.log(err))
+    }
+    else {
+      alert("Verifique os campos e tente novamente")
+    }
   }
 
   async function getAnimailId(id) {
@@ -42,7 +45,7 @@ export default function Inserir({ NomeDono, NomeAnimal, setObservacao, animalId,
         setNomeAnimal(json.animalNome);
       })
       .catch(err => console.log(err))
-      getDono( id );
+    getDono(id);
   }
 
   async function getDono(id) {
@@ -61,15 +64,25 @@ export default function Inserir({ NomeDono, NomeAnimal, setObservacao, animalId,
   return (
     <View style={css.container}>
       <Text>Inserir nova observação</Text>
-      <TextInput placeholder='Descrição'></TextInput>
-      <TextInput placeholder='Local'></TextInput>
-      <TextInput placeholder='Data'></TextInput>
+      <TextInput placeholder='Descrição'
+        value={obsDescricao}
+        onChangeText={(digitado) => setObsDescricao(digitado)}
+      ></TextInput>
+      <TextInput placeholder='Local'
+        value={obsLocal}
+        onChangeText={(digitado) => setObsLocal(digitado)}
+      ></TextInput>
+      <TextInput 
+        placeholder='Data'
+        value={obsData}
+        onChangeText={(digitado) => setObsData(digitado)}
+      ></TextInput>
       <Text>{animalNome}</Text>
       <Text>{user.usuarioNome}</Text>
       <TouchableOpacity onPress={CriarObs}>
         <Text>Salvar</Text>
       </TouchableOpacity>
-      <Button title='Voltar' onPress={() => setObservacao(false)}  />
+      <Button title='Voltar' onPress={() => setObservacao(false)} />
     </View>
   )
 }

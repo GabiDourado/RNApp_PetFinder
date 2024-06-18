@@ -33,7 +33,7 @@ export default function Cadastro({ onPress, setCadastro }) {
     } 
   }
   return (
-    <View>
+    <View style={css.container}>
       <Button title='voltar' onPress={onPress}/>
       <Text>Cadastre-se</Text>
       <View style={css.entrarCom}>
@@ -77,6 +77,14 @@ export default function Cadastro({ onPress, setCadastro }) {
 }
 
 const css = StyleSheet.create({
+  container:{
+    backgroundColor: "#E3F2FD",
+    width: "100%",
+    height: "100%",
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   entrarCom: {
     width: '90%',
     display: 'flex',

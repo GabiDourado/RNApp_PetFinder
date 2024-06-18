@@ -4,7 +4,7 @@ import { AuthContext } from '../Context/AuthContext';
 import Cadastro from './Cadastro';
 
 export default function Login() {
-    const [ cadastro, setCadastro ] = useState(false);
+    const [cadastro, setCadastro] = useState(false);
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
 
@@ -14,51 +14,64 @@ export default function Login() {
         Login(email, senha);
     }
 
-     function Voltar(){
+    function Voltar() {
         setCadastro(false);
-     }
+    }
     return (
         <ScrollView contentContainerStyle={css.container}>
             {!cadastro ? <>
-            <Image source={require("../../assets/logo.png")} style={css.logo} />
-            <TextInput
-                inputMode="email"
-                placeholder="Email"
-                style={css.input}
-                value={email}
-                onChangeText={(digitado) => setEmail(digitado)}
-                placeholderTextColor="white"
-            />
-            <TextInput
-                inputMode="text"
-                placeholder="Password"
-                secureTextEntry={true}
-                style={css.input}
-                value={senha}
-                onChangeText={(digitado) => setSenha(digitado)}
-                placeholderTextColor="white"
-            />
-            <TouchableOpacity style={css.btnLogin} onPress={RealizaLogin}>
-                <Text style={css.btnLoginText}>Log In</Text>
-            </TouchableOpacity>
-            <View style={css.forgot}>
-                <TouchableOpacity>
-                    <Text style={css.forgotText}>Esqueceu a senha?</Text>
-                </TouchableOpacity>
-            </View>
-            <View style={css.forgot}>
-                <TouchableOpacity onPress={()=> setCadastro(true)}>
-                    <Text style={css.forgotText}>Cadastre-se</Text>
-                </TouchableOpacity>
-            </View>
-            {error &&
-                <View style={css.error}>
-                    <Text style={css.errorText}>Revise os campos. Tente novamente!</Text>
+                <Image source={require("../../assets/logo.png")} style={css.logo} />
+                <Text style={css.titulo}>Entrar em sua conta</Text>
+                <View style={css.entrarCom}>
+                    <TouchableOpacity style={css.caixaentrar}>
+                        <Image style={css.conta} source={{ uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/480px-Facebook_f_logo_%282019%29.svg.png", }} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={css.caixaentrar}>
+                        <Image style={css.conta} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png', }} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={css.caixaentrar}>
+                        <Image style={css.conta} source={{ uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/768px-Instagram_icon.png", }} />
+                    </TouchableOpacity>
                 </View>
-            }
+                <Text style={css.ou}>Ou</Text>
+                <TextInput
+                    inputMode="email"
+                    placeholder="Email"
+                    style={css.input}
+                    value={email}
+                    onChangeText={(digitado) => setEmail(digitado)}
+                    placeholderTextColor="gray"
+                />
+                <TextInput
+                    inputMode="text"
+                    placeholder="Senha"
+                    secureTextEntry={true}
+                    style={css.input}
+                    value={senha}
+                    onChangeText={(digitado) => setSenha(digitado)}
+                    placeholderTextColor="gray"
+                />
+                <TouchableOpacity style={css.btnLogin} onPress={RealizaLogin}>
+                    <Text style={css.btnLoginText}>Entrar</Text>
+                </TouchableOpacity>
+                <View style={css.forgot}>
+                    <TouchableOpacity>
+                        <Text style={css.forgotText}>Esqueceu a senha?</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={css.forgot}>
+                    <TouchableOpacity onPress={() => setCadastro(true)}>
+                        <Text style={css.forgotText}>Cadastre-se</Text>
+                    </TouchableOpacity>
+                </View>
+                {error &&
+                    <View style={css.error}>
+                        <Text style={css.errorText}>Revise os campos. Tente novamente!</Text>
+                    </View>
+                }
             </>
-            :
-            <Cadastro setCadastro={setCadastro} onPress={()=>setCadastro(false)}/>}
+                :
+                <Cadastro setCadastro={setCadastro} onPress={() => setCadastro(false)} />}
         </ScrollView>
     )
 }
@@ -72,18 +85,20 @@ const css = StyleSheet.create({
         backgroundColor: "#E3F2FD"
     },
     logo: {
-        height: 300,
+        height: 150,
         width: "40%",
         resizeMode: "contain"
     },
     input: {
-        width: "90%",
+        fontSize: 20,
+        backgroundColor: '#fff',
+        borderColor: "#000",
+        borderWidth: 1,
+        padding: 13,
+        width: "85%",
         height: 50,
         borderRadius: 10,
-        marginBottom: 15,
-        padding: 15,
-        backgroundColor: "#262626",
-        color: "white"
+        marginBottom: 30,
     },
     forgot: {
         width: "90%",
@@ -96,12 +111,11 @@ const css = StyleSheet.create({
         fontWeight: "bold"
     },
     btnLogin: {
-        width: "90%",
+        width: "85%",
         height: 50,
         borderWidth: 1,
         borderRadius: 10,
-        marginTop: 30,
-        backgroundColor: "#0195fd"
+        backgroundColor: "#09488F",
     },
     btnLoginText: {
         color: "white",
@@ -118,5 +132,38 @@ const css = StyleSheet.create({
     errorText: {
         color: "white",
         textAlign: "center"
-    }
+    },
+    entrarCom: {
+        width: '90%',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-around'
+    },
+    caixaentrar: {
+        backgroundColor: "#fff",
+        width: 62,
+        height: 62,
+        margin: 10,
+        borderRadius: 10,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+
+    },
+    conta: {
+        width: 50,
+        height: 50,
+    },
+    ou: {
+        fontSize: 18,
+        fontWeight: "bold",
+        padding: 20,
+        textAlign: 'center',
+    },
+    titulo: {
+        fontSize: 23,
+        fontWeight: "bold",
+        padding: 20,
+        textAlign: 'center',
+    },
 });

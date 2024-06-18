@@ -1,16 +1,17 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity , Button} from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity, Button } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import CriarObservacao from '../Components/CriarObservacao'
 
 
-export default function Detalhes({onPress, animalImagem, animalId,
-                                  animalNome, animalDtDes, animalRaca, animalTipo, 
-                                  animalCor, animalSexo, animalObs, animalDono}) {
+export default function Detalhes({ onPress, animalImagem, animalId,
+  animalNome, animalDtDes, animalRaca, animalTipo,
+  animalCor, animalSexo, animalObs, animalDono }) {
   const [observacao, setObservacao] = useState(false);
+
 
   return (
     <View style={css.container}>
-      {!observacao && animalImagem != ""?
+      {!observacao && animalImagem != "" ?
         <>
           <View>
             <Image style={css.fotoAnimal} source={{ uri: animalImagem }} />
@@ -33,15 +34,19 @@ export default function Detalhes({onPress, animalImagem, animalId,
               <Text style={css.text}>Não</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={()=> setObservacao(true)}>
+          <TouchableOpacity onPress={() => setObservacao(true)}>
             <Text style={css.text}>Adicionar Observação</Text>
           </TouchableOpacity>
           <Button title='Voltar' onPress={onPress} />
         </>
-        :        
-        <CriarObservacao setObservacao={setObservacao} animalId = {animalId} animalNome={animalNome}/>
-       }
-     
+        :
+        <CriarObservacao
+          setObservacao={setObservacao}
+          animalId={animalId}
+          animalNome={animalNome}
+        />
+      }
+
     </View>
   )
 }
