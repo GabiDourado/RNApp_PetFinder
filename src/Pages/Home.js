@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Animal from '../Components/Animais';
 import Detalhes from '../Components/Detalhes';
 import Stories from '../Components/Stories'
+import { useFocusEffect } from '@react-navigation/native';
 
 
 
@@ -34,6 +35,11 @@ export default function Home({ navigation }) {
       .catch(err => console.log(err))
   }
 
+  useFocusEffect(
+    React.useCallback(()=> {
+      getAnimais();
+    },[])
+  )
   async function getAnimailId(id) {
     console.log()
     await fetch('http://10.139.75.52:5251/api/Animais/GetAnimalId/' + id, {
@@ -106,7 +112,7 @@ export default function Home({ navigation }) {
                                       setDetalhe={setDetalhe} 
                                       getAnimalId={getAnimailId} />}
             keyExtractor={(item) => item.animaisId}
-            contentContainerStyle={{ height: (animais.length * 600) + 110 }}
+            contentContainerStyle={{ height: (animais.length * 420) + 110 }}
           />
         </>
       }

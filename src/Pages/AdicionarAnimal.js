@@ -1,68 +1,112 @@
 import { View, Text, ScrollView, StyleSheet, TextInput, TouchableOpacity, Button } from 'react-native'
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import Stories from '../Components/Stories'
+import { AuthContext } from '../Context/AuthContext';
 
 export default function AdicionarAnimal() {
-
+  const [animalImagem, setAnimalImagem] = useState();
+  const [animalNome, setAnimalNome] = useState();
+  const [animalDtDes, setAnimalDtDes] = useState();
+  const [animalRaca, setAnimalRaca] = useState();
+  const [animalTipo, setAnimalTipo] = useState();
+  const [animalCor, setAnimalCor] = useState();
+  const [animalSexo, setAnimalSexo] = useState();
+  const [animalObs, setAnimalObs] = useState();
+  const { user } = useContext(AuthContext);
+  async function Adicionar() {
+    if (animalImagem != null || animalNome != null || animalDtDes != null || animalRaca != null || animalTipo!= null|| animalCor!=null ||animalSexo!=null || animalObs!=null) {
+      await fetch('http://10.139.75.52:5251/api/Animais/InsertAnimal', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          animalNome: animalNome,
+          animalRaca: animalRaca,
+          animalTipo: animalTipo,
+          animalCor: animalCor,
+          animalSexo: animalSexo,
+          animalObservacao: animalObs,
+          animalFoto: animalImagem,
+          animalDtDesaparecimento: animalDtDes,
+          animalStatus: 1,
+          usuarioId: user.usuarioId
+        })
+      })
+        .then(res => res.json())
+        .then(json => { alert("Adicionado com sucesso") })
+        .catch(err => console.log(err))
+    }
+    else {
+      alert("Verifique os campos e tente novamente")
+    }
+  }
+  function Salvar (){
+    Adicionar();
+    setAnimalNome("");
+    setAnimalImagem("");
+    setAnimalDtDes("");
+    setAnimalRaca("");
+    setAnimalTipo("");
+    setAnimalCor("");
+    setAnimalSexo("");
+    setAnimalObs("")
+  }
   return (
     <>
       <Stories />
       <ScrollView contentContainerStyle={css.scroll}>
         <View style={css.container}>
           <Text style={css.titulo}>Adicionar novo Animal</Text>
-          <TextInput placeholder='Descrição'
+          <TextInput placeholder='Nome do Animal'
             style={css.campo}
-          //value={obsDescricao}
-          //onChangeText={(digitado) => setObsDescricao(digitado)}
+            value={animalNome}
+            onChangeText={(digitado) => setAnimalNome(digitado)}
           ></TextInput>
-          <TextInput placeholder='Local'
-            //value={obsLocal}
+          <TextInput placeholder='Raça'
+            value={animalRaca}
             style={css.campo}
-          // onChangeText={(digitado) => setObsLocal(digitado)}
-          ></TextInput>
-          <TextInput
-            placeholder='Data'
-            // value={obsData}
-            style={css.campo}
-          //onChangeText={(digitado) => setObsData(digitado)}
+            onChangeText={(digitado) => setAnimalRaca(digitado)}
           ></TextInput>
           <TextInput
-            placeholder='Data'
-            // value={obsData}
+            placeholder='Tipo'
+            value={animalTipo}
             style={css.campo}
-          //onChangeText={(digitado) => setObsData(digitado)}
+            onChangeText={(digitado) => setAnimalTipo(digitado)}
           ></TextInput>
           <TextInput
-            placeholder='Data'
-            // value={obsData}
+            placeholder='Cor'
+            value={animalCor}
             style={css.campo}
-          //onChangeText={(digitado) => setObsData(digitado)}
+            onChangeText={(digitado) => setAnimalCor(digitado)}
           ></TextInput>
           <TextInput
-            placeholder='Data'
-            // value={obsData}
+            placeholder='Sexo'
+            value={animalSexo}
             style={css.campo}
-          //onChangeText={(digitado) => setObsData(digitado)}
+            onChangeText={(digitado) => setAnimalSexo(digitado)}
           ></TextInput>
           <TextInput
-            placeholder='Data'
-            // value={obsData}
+            placeholder='Observação'
+            value={animalObs}
             style={css.campo}
-          //onChangeText={(digitado) => setObsData(digitado)}
+            onChangeText={(digitado) => setAnimalObs(digitado)}
           ></TextInput>
           <TextInput
-            placeholder='Data'
-            // value={obsData}
+            placeholder='Data de desaparecimento'
+            value={animalDtDes}
             style={css.campo}
-          //onChangeText={(digitado) => setObsData(digitado)}
+            onChangeText={(digitado) => setAnimalDtDes(digitado)}
           ></TextInput>
-          <Text style={css.nomes}>teste</Text>
-          <Text style={css.nomes}>teste</Text>
-          <TouchableOpacity style={css.btnSalvar} /*onPress={CriarObs}*/>
+          <TextInput
+            placeholder='Foto'
+            value={animalImagem}
+            style={css.campo}
+            onChangeText={(digitado) => setAnimalImagem(digitado)}
+          ></TextInput>
+          <Text style={css.nomes}>Dono: {user.usuarioNome} </Text>
+          <TouchableOpacity style={css.btnSalvar} onPress={Salvar}>
             <Text style={css.btnSalvartxt}>Salvar</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={css.volta} /*onPress={() => setObservacao(false)} */>
-            <Text style={css.txt}>Voltar</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -105,15 +149,6 @@ const css = StyleSheet.create({
     marginBottom: 25,
     borderRadius: 10,
   },
-  volta: {
-    backgroundColor: "#346AA5",
-    padding: 10,
-    borderRadius: 10,
-    margin: 15
-  },
-  txt: {
-    color: "#fff"
-  },
   btnSalvar: {
     width: 350,
     height: 50,
@@ -127,8 +162,9 @@ const css = StyleSheet.create({
     textAlign: "center",
     fontSize: 15,
   },
-  scroll:{
-    paddingBottom: 70
+  scroll: {
+    paddingBottom: 50,
+    backgroundColor: "#E3F2FD",
   },
 
 })
